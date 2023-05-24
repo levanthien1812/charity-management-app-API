@@ -25,6 +25,12 @@ public class Donor {
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
 
+    @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
+    private Collection<TransferFrom> transfers;
+
+    @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
+    private Collection<ItemFrom> itemFroms;
+
     public Donor() {
     }
 

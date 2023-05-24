@@ -3,6 +3,8 @@ package dev.asheep.charitymanagementapp.controllers;
 import dev.asheep.charitymanagementapp.models.Donor;
 import dev.asheep.charitymanagementapp.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +16,8 @@ public class DonorController {
     private DonorService donorService;
 
     @PostMapping("/add")
-    public String add(@RequestBody Donor donor) {
-        donorService.createDonor(donor);
-        return "New donor is added";
+    public ResponseEntity<Donor> add(@RequestBody Donor donor) {
+        return new ResponseEntity<Donor>(donorService.createDonor(donor), HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all")
@@ -25,7 +26,7 @@ public class DonorController {
     }
 
     @GetMapping("/{donorId}")
-    public Donor get(@PathVariable Integer donorId) {
-        return donorService.getDonor(donorId);
+    public ResponseEntity<Donor> get(@PathVariable Integer donorId) {
+        return new ResponseEntity<Donor>(donorService.getDonor(donorId), HttpStatus.OK);
     }
 }

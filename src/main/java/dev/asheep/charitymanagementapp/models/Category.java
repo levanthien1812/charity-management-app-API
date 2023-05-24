@@ -15,4 +15,13 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<Distribution> distributions;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<ItemFrom> itemFroms;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<ItemTo> itemTos;
 }
