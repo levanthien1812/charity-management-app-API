@@ -9,5 +9,6 @@ import java.util.List;
 public interface EventService {
     public Event createEvent(Event event) ;
     public List<Event> getAllEvents();
-    public Event getDonor(Integer eventId);
+    public void getEvent(Integer eventId);
+//    public List<Event> getEventsByDonorId(Integer donorId);
 }

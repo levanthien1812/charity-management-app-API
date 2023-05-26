@@ -17,13 +17,13 @@ public class StorageController {
     private StorageService storageService;
 
     @PostMapping
-    public ResponseEntity create(@RequestParam(name = "image") MultipartFile file) {
+    public String create(@RequestParam(name = "image") MultipartFile file) {
         try {
             String fileName = storageService.saveFile(file);
-            System.out.println(fileName);
+            return storageService.getImageUrl(fileName);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return ResponseEntity.ok().build();
     }
 }

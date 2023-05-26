@@ -8,9 +8,9 @@ import java.util.Collection;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private String Name;
-    private String Unit;
+    private Integer id;
+    private String name;
+    private String unit;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
@@ -28,26 +28,26 @@ public class Category {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getUnit() {
-        return Unit;
+        return unit;
     }
 
     public void setUnit(String unit) {
-        Unit = unit;
+        this.unit = unit;
     }
 }

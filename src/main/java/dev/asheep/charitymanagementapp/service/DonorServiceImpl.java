@@ -1,5 +1,6 @@
 package dev.asheep.charitymanagementapp.service;
 
+import dev.asheep.charitymanagementapp.exception.ResourceExistedException;
 import dev.asheep.charitymanagementapp.exception.ResourceNotFoundException;
 import dev.asheep.charitymanagementapp.models.Donor;
 import dev.asheep.charitymanagementapp.repositories.DonorRepository;
@@ -27,6 +28,11 @@ public class DonorServiceImpl implements DonorService{
 
     @Override
     public Donor getDonor(Integer donorId) {
-        return donorRepository.findById(donorId).orElseThrow(() -> new ResourceNotFoundException("Donor", "Id", donorId));
+        return donorRepository.findById(donorId).get();
+    }
+
+    @Override
+    public void deleteDonor(Integer donorId) {
+        donorRepository.deleteById(donorId);
     }
 }

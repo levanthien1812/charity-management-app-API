@@ -3,32 +3,33 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalTime;
 
 @Entity
 public class TransferFrom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @ManyToOne()
     @JoinColumn(name = "donor_id")
     private Donor donor;
 
-    private Number Amount;
-    private String BankFrom;
-    private String AccountFrom;
-    private Date Time;
-    private String Content;
+    private Number amount;
+    private String bankFrom;
+    private String accountFrom;
+    private LocalTime time;
+    private String content;
 
     public TransferFrom() {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public Donor getDonor() {
@@ -40,42 +41,42 @@ public class TransferFrom {
     }
 
     public Number getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(Number amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public String getBankFrom() {
-        return BankFrom;
+        return bankFrom;
     }
 
     public void setBankFrom(String bankFrom) {
-        BankFrom = bankFrom;
+        this.bankFrom = bankFrom;
     }
 
     public String getAccountFrom() {
-        return AccountFrom;
+        return accountFrom;
     }
 
     public void setAccountFrom(String accountFrom) {
-        AccountFrom = accountFrom;
+        this.accountFrom = accountFrom;
     }
 
-    public Date getTime() {
-        return Time;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setTime(Date time) {
-        Time = time;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 }

@@ -3,24 +3,25 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
 public class Donor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private String Name;
-    private int Gender;
-    private String Phone;
-    private Date Birthday;
-    private String Photo;
-    private String Email;
-    private String Address;
-    private Integer Score;
-    private Date JoinDate;
-    private String Slogan;
-    private String Username;
+    private Integer id;
+    private String name;
+    private int gender;
+    private String phone;
+    private LocalDate birthday;
+    private String photo;
+    private String email;
+    private String address;
+    private Integer score;
+    private LocalDate joinDate;
+    private String slogan;
+    private String username;
 
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
@@ -32,101 +33,102 @@ public class Donor {
     private Collection<ItemFrom> itemFroms;
 
     public Donor() {
+        this.joinDate = LocalDate.now();
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public int getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(int gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
-    public Date getBirthday() {
-        return Birthday;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setBirthday(Date birthday) {
-        Birthday = birthday;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getPhoto() {
-        return Photo;
+        return photo;
     }
 
     public void setPhoto(String photo) {
-        Photo = photo;
+        this.photo = photo;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public Integer getScore() {
-        return Score;
+        return score;
     }
 
     public void setScore(Integer score) {
-        Score = score;
+        this.score = score;
     }
 
-    public Date getJoinDate() {
-        return JoinDate;
+    public LocalDate getJoinDate() {
+        return joinDate;
     }
 
-    public void setJoinDate(Date joinDate) {
-        JoinDate = joinDate;
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
     }
 
     public String getSlogan() {
-        return Slogan;
+        return slogan;
     }
 
     public void setSlogan(String slogan) {
-        Slogan = slogan;
+        this.slogan = slogan;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 }

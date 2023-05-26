@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @ManyToOne()
     @JoinColumn(name = "donor_id")
@@ -34,11 +34,11 @@ public class Donation {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public Donor getDonor() {
