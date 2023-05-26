@@ -8,4 +8,5 @@ public interface DonorService {
     public Donor createDonor(Donor donor) ;
     public List<Donor> getAllDonors();
     public Donor getDonor(Integer donorId);
+    public void deleteDonor(Integer donorId);
 }

@@ -3,32 +3,33 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalTime;
 
 @Entity
 public class TransferTo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @ManyToOne()
     @JoinColumn(name = "receiver_id")
     private Receiver receiver;
 
-    private Number Amount;
-    private String BankTo;
-    private String AccountTo;
-    private Date Time;
-    private String Content;
+    private Number amount;
+    private String bankTo;
+    private String accountTo;
+    private LocalTime time;
+    private String content;
 
     public TransferTo() {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public Receiver getReceiver() {
@@ -40,42 +41,42 @@ public class TransferTo {
     }
 
     public Number getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(Number amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public String getBankTo() {
-        return BankTo;
+        return bankTo;
     }
 
     public void setBankTo(String bankTo) {
-        BankTo = bankTo;
+        this.bankTo = bankTo;
     }
 
     public String getAccountTo() {
-        return AccountTo;
+        return accountTo;
     }
 
     public void setAccountTo(String accountTo) {
-        AccountTo = accountTo;
+        this.accountTo = accountTo;
     }
 
-    public Date getTime() {
-        return Time;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setTime(Date time) {
-        Time = time;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 }

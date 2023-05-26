@@ -3,19 +3,21 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
 
 @Entity
 public class Receiver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
-    private String Name;
-    private Integer Gender;
-    private String Phone;
-    private Date Birthday;
-    private String Photo;
+    private String name;
+    private Integer gender;
+    private String phone;
+    private LocalDate birthday;
+    private String photo;
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private Collection<Distribution> distributions;
@@ -30,50 +32,58 @@ public class Receiver {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public Integer getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(Integer gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
-    public Date getBirthday() {
-        return Birthday;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setBirthday(Date birthday) {
-        Birthday = birthday;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getPhoto() {
-        return Photo;
+        return photo;
     }
 
     public void setPhoto(String photo) {
-        Photo = photo;
+        this.photo = photo;
+    }
+
+    public Collection<Distribution> getDistributions() {
+        return distributions;
+    }
+
+    public void setDistributions(Collection<Distribution> distributions) {
+        this.distributions = distributions;
     }
 }

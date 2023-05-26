@@ -3,19 +3,20 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalTime;
 
 @Entity
 public class ItemFrom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @ManyToOne()
     @JoinColumn(name = "donor_id")
     private Donor donor;
 
-    private Number Amount;
-    private Date Time;
+    private Number amount;
+    private LocalTime time;
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;
@@ -23,13 +24,6 @@ public class ItemFrom {
     public ItemFrom() {
     }
 
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public Donor getDonor() {
         return donor;
@@ -39,20 +33,28 @@ public class ItemFrom {
         this.donor = donor;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Number getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(Number amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
-    public Date getTime() {
-        return Time;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setTime(Date time) {
-        Time = time;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public Category getCategory() {

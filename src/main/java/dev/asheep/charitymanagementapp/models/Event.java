@@ -3,22 +3,23 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private String Title;
-    private String Image;
-    private String Description;
-    private String Address;
-    private Date DateBegin;
-    private Date DateEnd;
-    private Number AmountNeeded;
-    private Number AmountGot;
-    private Number DonorQuantity;
+    private Integer id;
+    private String title;
+    private String image;
+    private String description;
+    private String address;
+    private LocalDate dateBegin;
+    private LocalDate dateEnd;
+    private Number amountNeeded;
+    private Number amountGot;
+    private Number donorQuantity;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
@@ -27,83 +28,83 @@ public class Event {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
-    public Date getDateBegin() {
-        return DateBegin;
+    public LocalDate getDateBegin() {
+        return dateBegin;
     }
 
-    public void setDateBegin(Date dateBegin) {
-        DateBegin = dateBegin;
+    public void setDateBegin(LocalDate dateBegin) {
+        this.dateBegin = dateBegin;
     }
 
-    public Date getDateEnd() {
-        return DateEnd;
+    public LocalDate getDateEnd() {
+        return dateEnd;
     }
 
-    public void setDateEnd(Date dateEnd) {
-        DateEnd = dateEnd;
+    public void setDateEnd(LocalDate dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public Number getAmountNeeded() {
-        return AmountNeeded;
+        return amountNeeded;
     }
 
     public void setAmountNeeded(Number amountNeeded) {
-        AmountNeeded = amountNeeded;
+        this.amountNeeded = amountNeeded;
     }
 
     public Number getAmountGot() {
-        return AmountGot;
+        return amountGot;
     }
 
     public void setAmountGot(Number amountGot) {
-        AmountGot = amountGot;
+        this.amountGot = amountGot;
     }
 
     public Number getDonorQuantity() {
-        return DonorQuantity;
+        return donorQuantity;
     }
 
     public void setDonorQuantity(Number donorQuantity) {
-        DonorQuantity = donorQuantity;
+        this.donorQuantity = donorQuantity;
     }
 }
 

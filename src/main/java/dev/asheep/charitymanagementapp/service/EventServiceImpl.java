@@ -2,6 +2,7 @@ package dev.asheep.charitymanagementapp.service;
 
 import dev.asheep.charitymanagementapp.models.Event;
 import dev.asheep.charitymanagementapp.repositories.EventRepository;
+import org.hibernate.mapping.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,21 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Event createEvent(Event event) {
-        return null;
+        return eventRepository.save(event);
     }
 
     @Override
     public List<Event> getAllEvents() {
-        return null;
+        return eventRepository.findAll();
     }
 
     @Override
-    public Event getDonor(Integer eventId) {
-        return null;
+    public void getEvent(Integer eventId) {
+        eventRepository.deleteById(eventId);
     }
+
+//    @Override
+//    public List<Event> getEventsByDonorId(Integer donorId) {
+//
+//    }
 }
