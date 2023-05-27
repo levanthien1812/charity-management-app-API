@@ -13,10 +13,6 @@ public class Donation {
     private Donor donor;
 
     @ManyToOne()
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToOne()
     @JoinColumn(name = "event_id")
     private Event event;
 
@@ -47,14 +43,6 @@ public class Donation {
 
     public void setDonor(Donor donor) {
         this.donor = donor;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public Event getEvent() {

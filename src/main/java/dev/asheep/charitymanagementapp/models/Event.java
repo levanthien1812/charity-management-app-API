@@ -1,10 +1,12 @@
 package dev.asheep.charitymanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -15,16 +17,24 @@ public class Event {
     private String image;
     private String description;
     private String address;
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
     private LocalDate dateBegin;
     private LocalDate dateEnd;
-    private Number amountNeeded;
-    private Number amountGot;
-    private Number donorQuantity;
+    private Long amountNeeded;
+    private Long amountGot;
+    private Integer donorQuantity;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private Collection<Donation> donations;
 
+    @ManyToMany(mappedBy = "joinedEvents")
+    private Set<Donor> joinedDonors;
+
     public Event() {
+        this.donorQuantity = 0;
+        this.amountGot = 0L;
     }
 
     public Integer getId() {
@@ -67,6 +77,14 @@ public class Event {
         this.address = address;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public LocalDate getDateBegin() {
         return dateBegin;
     }
@@ -83,27 +101,27 @@ public class Event {
         this.dateEnd = dateEnd;
     }
 
-    public Number getAmountNeeded() {
+    public Long getAmountNeeded() {
         return amountNeeded;
     }
 
-    public void setAmountNeeded(Number amountNeeded) {
+    public void setAmountNeeded(Long amountNeeded) {
         this.amountNeeded = amountNeeded;
     }
 
-    public Number getAmountGot() {
+    public Long getAmountGot() {
         return amountGot;
     }
 
-    public void setAmountGot(Number amountGot) {
+    public void setAmountGot(Long amountGot) {
         this.amountGot = amountGot;
     }
 
-    public Number getDonorQuantity() {
+    public Integer getDonorQuantity() {
         return donorQuantity;
     }
 
-    public void setDonorQuantity(Number donorQuantity) {
+    public void setDonorQuantity(Integer donorQuantity) {
         this.donorQuantity = donorQuantity;
     }
 }

@@ -1,10 +1,12 @@
 package dev.asheep.charitymanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Donor {
@@ -32,6 +34,17 @@ public class Donor {
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private Collection<ItemFrom> itemFroms;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "donation",
+            joinColumns =  @JoinColumn(name = "donor_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    private Set<Event> joinedEvents;
+
+    public void addJoinedEvent(Event event) {
+        this.joinedEvents.add(event);
+    }
+
+//    Getters and setters
     public Donor() {
         this.joinDate = LocalDate.now();
     }
