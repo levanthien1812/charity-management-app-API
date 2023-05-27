@@ -13,10 +13,7 @@ public class Category {
     private String unit;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Collection<Donation> donations;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Collection<Distribution> distributions;
+    private Collection<Event> events;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<ItemFrom> itemFroms;

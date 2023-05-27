@@ -13,10 +13,6 @@ public class Distribution {
     private Receiver receiver;
 
     @ManyToOne()
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToOne()
     @JoinColumn(name = "event_id")
     private Event event;
 
@@ -47,14 +43,6 @@ public class Distribution {
 
     public void setReceiver(Receiver receiver) {
         this.receiver = receiver;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public Event getEvent() {
