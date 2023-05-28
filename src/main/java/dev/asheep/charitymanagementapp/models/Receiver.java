@@ -22,12 +22,6 @@ public class Receiver {
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private Collection<Distribution> distributions;
 
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private Collection<TransferTo> transfers;
-
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
-    private Collection<ItemTo> itemTos;
-
     public Receiver() {
     }
 

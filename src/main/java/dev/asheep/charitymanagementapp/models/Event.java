@@ -1,11 +1,14 @@
 package dev.asheep.charitymanagementapp.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,15 +29,25 @@ public class Event {
     private Long amountGot;
     private Integer donorQuantity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private Collection<Donation> donations;
+    private Set<Donation> donations = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "joinedEvents")
-    private Set<Donor> joinedDonors;
+    private Set<Donor> joinedDonors = new HashSet<>();
 
     public Event() {
         this.donorQuantity = 0;
         this.amountGot = 0L;
+    }
+
+    public void addDonation(Donation donation) {
+        this.donations.add(donation);
+    }
+
+    public void addJoinedDonor(Donor donor) {
+        this.joinedDonors.add(donor);
     }
 
     public Integer getId() {
@@ -123,6 +136,22 @@ public class Event {
 
     public void setDonorQuantity(Integer donorQuantity) {
         this.donorQuantity = donorQuantity;
+    }
+
+    public Set<Donation> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(Set<Donation> donations) {
+        this.donations = donations;
+    }
+
+    public Set<Donor> getJoinedDonors() {
+        return joinedDonors;
+    }
+
+    public void setJoinedDonors(Set<Donor> joinedDonors) {
+        this.joinedDonors = joinedDonors;
     }
 }
 
