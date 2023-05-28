@@ -3,6 +3,7 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -11,14 +12,10 @@ public class TransferFrom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne()
-    @JoinColumn(name = "donor_id")
-    private Donor donor;
-
-    private Number amount;
+    private Long amount;
     private String bankFrom;
     private String accountFrom;
-    private LocalTime time;
+    private LocalDateTime time;
     private String content;
 
     public TransferFrom() {
@@ -32,19 +29,11 @@ public class TransferFrom {
         this.id = id;
     }
 
-    public Donor getDonor() {
-        return donor;
-    }
-
-    public void setDonor(Donor donor) {
-        this.donor = donor;
-    }
-
-    public Number getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(Number amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 
@@ -64,11 +53,11 @@ public class TransferFrom {
         this.accountFrom = accountFrom;
     }
 
-    public LocalTime getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

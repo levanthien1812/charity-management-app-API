@@ -3,6 +3,7 @@ package dev.asheep.charitymanagementapp.controllers;
 import dev.asheep.charitymanagementapp.exception.ResourceNotFoundException;
 import dev.asheep.charitymanagementapp.models.Donation;
 import dev.asheep.charitymanagementapp.models.Donor;
+import dev.asheep.charitymanagementapp.models.Event;
 import dev.asheep.charitymanagementapp.repositories.CategoryRepository;
 import dev.asheep.charitymanagementapp.repositories.DonorRepository;
 import dev.asheep.charitymanagementapp.repositories.EventRepository;
@@ -25,7 +26,16 @@ public class DonationController {
     private CategoryRepository categoryRepository;
 
     @PostMapping
-    public ResponseEntity<?> add(@RequestParam Donation donation) {
-        return ResponseEntity.status(HttpStatus.OK).body(donation);
+    public ResponseEntity<?> add(@RequestBody Donation donation) {
+        Donation newDonation = donationService.createDonation(donation);
+        Donor donor = newDonation.getDonor();
+        Event event = newDonation.getEvent();
+        donor.addDonation(newDonation);
+        donor.addJoinedEvent(event);
+        event.addDonation(newDonation);
+        event.addJoinedDonor(donor);
+        donorRepository.save(donor);
+        eventRepository.save(event);
+        return ResponseEntity.status(HttpStatus.OK).body(newDonation);
     }
 }

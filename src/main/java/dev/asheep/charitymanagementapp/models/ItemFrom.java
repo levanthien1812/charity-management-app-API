@@ -11,10 +11,6 @@ public class ItemFrom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne()
-    @JoinColumn(name = "donor_id")
-    private Donor donor;
-
     private Number amount;
     private LocalTime time;
     @ManyToOne()
@@ -22,15 +18,6 @@ public class ItemFrom {
     private Category category;
 
     public ItemFrom() {
-    }
-
-
-    public Donor getDonor() {
-        return donor;
-    }
-
-    public void setDonor(Donor donor) {
-        this.donor = donor;
     }
 
     public Integer getId() {

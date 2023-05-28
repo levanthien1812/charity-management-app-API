@@ -17,12 +17,12 @@ public class Donation {
     private Event event;
 
 //    used for category money
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "transfer_id")
     private TransferFrom transfer;
 
 //    used for category item
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "item_id")
     private ItemFrom item;
 

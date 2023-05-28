@@ -11,10 +11,6 @@ public class ItemTo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne()
-    @JoinColumn(name = "receiver_id")
-    private Receiver receiver;
-
     private Number amount;
     private LocalTime time;
     @ManyToOne()
@@ -30,14 +26,6 @@ public class ItemTo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Receiver getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Receiver receiver) {
-        this.receiver = receiver;
     }
 
     public Number getAmount() {
