@@ -11,7 +11,7 @@ public class ItemTo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Number amount;
+    private Long amount;
     private LocalTime time;
     @ManyToOne()
     @JoinColumn(name = "category_id")
@@ -28,11 +28,11 @@ public class ItemTo {
         this.id = id;
     }
 
-    public Number getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(Number amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 

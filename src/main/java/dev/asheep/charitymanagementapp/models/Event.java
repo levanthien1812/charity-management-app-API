@@ -27,7 +27,9 @@ public class Event {
     private LocalDate dateEnd;
     private Long amountNeeded;
     private Long amountGot;
+    private Long amountDistributed;
     private Integer donorQuantity;
+    private Boolean isDonating;
 
     @JsonIgnore
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
@@ -40,6 +42,7 @@ public class Event {
     public Event() {
         this.donorQuantity = 0;
         this.amountGot = 0L;
+        this.amountDistributed = 0L;
     }
 
     public void addDonation(Donation donation) {
@@ -152,6 +155,22 @@ public class Event {
 
     public void setJoinedDonors(Set<Donor> joinedDonors) {
         this.joinedDonors = joinedDonors;
+    }
+
+    public Boolean getDonating() {
+        return isDonating;
+    }
+
+    public void setDonating(Boolean donating) {
+        isDonating = donating;
+    }
+
+    public Long getAmountDistributed() {
+        return amountDistributed;
+    }
+
+    public void setAmountDistributed(Long amountDistributed) {
+        this.amountDistributed = amountDistributed;
     }
 }
 

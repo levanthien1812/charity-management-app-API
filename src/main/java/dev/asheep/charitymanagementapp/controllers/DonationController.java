@@ -30,10 +30,26 @@ public class DonationController {
         Donation newDonation = donationService.createDonation(donation);
         Donor donor = newDonation.getDonor();
         Event event = newDonation.getEvent();
+
+//        Add donation to Event and Donor
+//        Add donor to event and vice versa
         donor.addDonation(newDonation);
         donor.addJoinedEvent(event);
         event.addDonation(newDonation);
         event.addJoinedDonor(donor);
+
+//        Update score for donor
+//        Set amount got for event
+        if (donation.getTransfer() != null) {
+            donor.setScore((int) (donor.getScore() + (donation.getTransfer().getAmount()/10000)));
+            event.setAmountGot(donation.getTransfer().getAmount());
+        }
+
+        if (donation.getItem() != null) {
+            donor.setScore((int) (donor.getScore() + donation.getItem().getAmount()));
+            event.setAmountGot(donation.getItem().getAmount());
+        }
+
         donorRepository.save(donor);
         eventRepository.save(event);
         return ResponseEntity.status(HttpStatus.OK).body(newDonation);
