@@ -27,6 +27,7 @@ public class Donor {
     private LocalDate joinDate;
     private String slogan;
     private String username;
+    private String password;
 
     @JsonIgnore
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
@@ -163,5 +164,13 @@ public class Donor {
 
     public void setJoinedEvents(Set<Event> joinedEvents) {
         this.joinedEvents = joinedEvents;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
