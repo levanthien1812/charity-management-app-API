@@ -17,7 +17,6 @@ public class Donor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private int gender;
     private String phone;
     private LocalDate birthday;
     private String photo;
@@ -68,14 +67,6 @@ public class Donor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
     }
 
     public String getPhone() {
