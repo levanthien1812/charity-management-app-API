@@ -31,8 +31,14 @@ public class DonorServiceImpl implements DonorService{
     }
 
     @Override
-    public List<Donor> getAllDonors() {
-        return donorRepository.findAll();
+    public List<Donor> getAllDonors(String search) {
+        List<Donor> donors;
+        if (!search.isEmpty()) {
+            donors = donorRepository.findByIdOrUsernameOrName(Integer.valueOf(search), search, search);
+        } else {
+            donors = donorRepository.findAll();
+        }
+        return donors;
     }
 
     @Override

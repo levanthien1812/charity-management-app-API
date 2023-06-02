@@ -41,8 +41,8 @@ public class DonorController {
     }
 
     @GetMapping("/get-all")
-    public List<Donor> getAll() {
-        return donorService.getAllDonors();
+    public List<Donor> getAll(@RequestParam("search") String search) {
+        return donorService.getAllDonors(search);
     }
 
     @GetMapping("/{donorId}")
