@@ -57,6 +57,7 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>8.1.0</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -77,6 +78,8 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+=======
+>>>>>>> master
 	</dependencies>
 
 	<build>
