@@ -28,6 +28,10 @@ public class Donor {
     private String username;
     private String password;
 
+    private Integer eventQuantity;
+    private Double totalTransferAmount;
+    private Double totalItemAmount;
+
     @JsonIgnore
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private Set<Donation> donations = new HashSet<>();
@@ -39,6 +43,13 @@ public class Donor {
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> joinedEvents = new HashSet<>();
 
+    public Donor() {
+        this.joinDate = LocalDate.now();
+        this.score = 0;
+        this.eventQuantity = 0;
+        this.totalItemAmount = 0D;
+        this.totalTransferAmount = 0D;
+    }
 
     public void addDonation(Donation donation) {
         this.donations.add(donation);
@@ -49,10 +60,6 @@ public class Donor {
     }
 
 //    Getters and setters
-    public Donor() {
-        this.joinDate = LocalDate.now();
-    }
-
     public Integer getId() {
         return id;
     }
@@ -163,5 +170,29 @@ public class Donor {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getEventQuantity() {
+        return eventQuantity;
+    }
+
+    public void setEventQuantity(Integer eventQuantity) {
+        this.eventQuantity = eventQuantity;
+    }
+
+    public Double getTotalTransferAmount() {
+        return totalTransferAmount;
+    }
+
+    public void setTotalTransferAmount(Double totalTransferAmount) {
+        this.totalTransferAmount = totalTransferAmount;
+    }
+
+    public Double getTotalItemAmount() {
+        return totalItemAmount;
+    }
+
+    public void setTotalItemAmount(Double totalItemAmount) {
+        this.totalItemAmount = totalItemAmount;
     }
 }

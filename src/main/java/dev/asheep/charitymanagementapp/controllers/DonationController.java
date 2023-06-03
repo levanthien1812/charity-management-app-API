@@ -32,21 +32,37 @@ public class DonationController {
         Event event = newDonation.getEvent();
 
 //        Add donation to Event and Donor
-//        Add donor to event and vice versa
         donor.addDonation(newDonation);
-        donor.addJoinedEvent(event);
         event.addDonation(newDonation);
-        event.addJoinedDonor(donor);
+
+//        Check if event already exists in donor, then
+//        Add joined event to donor
+//        Increment event quantity
+        if (!donor.getJoinedEvents().contains(donation.getEvent())) {
+            donor.addJoinedEvent(event);
+            donor.setEventQuantity(donor.getEventQuantity() + 1);
+        }
+
+//        Check if donor already exists in event, then
+//        Add joined donor to event
+//        Increment donor quantity
+        if (!event.getJoinedDonors().contains(donation.getDonor())) {
+            event.addJoinedDonor(donor);
+            event.setDonorQuantity(event.getDonorQuantity() + 1);
+        }
 
 //        Update score for donor
+//        Set total transfer amount/total item amount for donor
 //        Set amount got for event
         if (donation.getTransfer() != null) {
             donor.setScore((int) (donor.getScore() + (donation.getTransfer().getAmount()/10000)));
+            donor.setTotalTransferAmount(donor.getTotalTransferAmount() + donation.getTransfer().getAmount());
             event.setAmountGot(donation.getTransfer().getAmount());
         }
 
         if (donation.getItem() != null) {
             donor.setScore((int) (donor.getScore() + donation.getItem().getAmount()));
+            donor.setTotalItemAmount(donor.getTotalItemAmount() + donation.getItem().getAmount());
             event.setAmountGot(donation.getItem().getAmount());
         }
 

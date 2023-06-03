@@ -2,7 +2,6 @@ package dev.asheep.charitymanagementapp.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalTime;
 
 @Entity
@@ -11,7 +10,7 @@ public class ItemFrom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Long amount;
+    private Double amount;
     private LocalTime time;
     @ManyToOne()
     @JoinColumn(name = "category_id")
@@ -28,11 +27,11 @@ public class ItemFrom {
         this.id = id;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
