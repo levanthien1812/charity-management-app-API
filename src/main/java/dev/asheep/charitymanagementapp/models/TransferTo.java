@@ -12,9 +12,9 @@ public class TransferTo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Long amount;
-    private String bankTo;
-    private String accountTo;
+    private Double amount;
+    private String bank;
+    private String account;
     private LocalDateTime time;
     private String content;
 
@@ -29,28 +29,28 @@ public class TransferTo {
         this.id = id;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public String getBankTo() {
-        return bankTo;
+    public String getBank() {
+        return bank;
     }
 
-    public void setBankTo(String bankTo) {
-        this.bankTo = bankTo;
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 
-    public String getAccountTo() {
-        return accountTo;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAccountTo(String accountTo) {
-        this.accountTo = accountTo;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public LocalDateTime getTime() {

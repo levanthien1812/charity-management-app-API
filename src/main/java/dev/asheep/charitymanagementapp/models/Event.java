@@ -25,9 +25,9 @@ public class Event {
     private Category category;
     private LocalDate dateBegin;
     private LocalDate dateEnd;
-    private Long amountNeeded;
-    private Long amountGot;
-    private Long amountDistributed;
+    private Double amountNeeded;
+    private Double amountGot;
+    private Double amountDistributed;
     private Integer donorQuantity;
     private Boolean isDonating;
 
@@ -41,8 +41,8 @@ public class Event {
 
     public Event() {
         this.donorQuantity = 0;
-        this.amountGot = 0L;
-        this.amountDistributed = 0L;
+        this.amountGot = 0D;
+        this.amountDistributed = 0D;
     }
 
     public void addDonation(Donation donation) {
@@ -117,19 +117,19 @@ public class Event {
         this.dateEnd = dateEnd;
     }
 
-    public Long getAmountNeeded() {
+    public Double getAmountNeeded() {
         return amountNeeded;
     }
 
-    public void setAmountNeeded(Long amountNeeded) {
+    public void setAmountNeeded(Double amountNeeded) {
         this.amountNeeded = amountNeeded;
     }
 
-    public Long getAmountGot() {
+    public Double getAmountGot() {
         return amountGot;
     }
 
-    public void setAmountGot(Long amountGot) {
+    public void setAmountGot(Double amountGot) {
         this.amountGot = amountGot;
     }
 
@@ -165,11 +165,11 @@ public class Event {
         isDonating = donating;
     }
 
-    public Long getAmountDistributed() {
+    public Double getAmountDistributed() {
         return amountDistributed;
     }
 
-    public void setAmountDistributed(Long amountDistributed) {
+    public void setAmountDistributed(Double amountDistributed) {
         this.amountDistributed = amountDistributed;
     }
 }

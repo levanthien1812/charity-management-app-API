@@ -12,5 +12,5 @@ import java.util.List;
 public interface DonorRepository extends JpaRepository<Donor, Integer> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    List<Donor> findByIdOrUsernameOrName(Integer id, String username, String name);
+    List<Donor> findByUsernameOrName(String username, String name);
 }
