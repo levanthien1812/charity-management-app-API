@@ -46,7 +46,17 @@ public class ItemTo {
         this.id = id;
     }
 
+<<<<<<< HEAD
 
+=======
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+>>>>>>> dev
 
     public LocalTime getTime() {
         return time;
