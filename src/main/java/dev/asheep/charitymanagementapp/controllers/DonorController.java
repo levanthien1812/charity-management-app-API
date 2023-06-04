@@ -40,11 +40,13 @@ public class DonorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/get-all")
     public List<Donor> getAll(@RequestParam(required = false, name = "search") String search) {
         return donorService.getAllDonors(search);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{donorId}")
     public ResponseEntity<?> get(@PathVariable Integer donorId) {
         if (donorRepository.findById(donorId).isEmpty()) {
