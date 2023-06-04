@@ -11,9 +11,9 @@ public class ItemTo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Long plannedQuantity;
+    private Double plannedQuantity;
 
-    private Long actualQuantity;
+    private Double actualQuantity;
     private LocalTime time;
     @ManyToOne()
     @JoinColumn(name = "category_id")
@@ -22,19 +22,19 @@ public class ItemTo {
     public ItemTo() {
     }
 
-    public Long getPlannedQuantity() {
+    public Double getPlannedQuantity() {
         return plannedQuantity;
     }
 
-    public void setPlannedQuantity(Long plannedQuantity) {
+    public void setPlannedQuantity(Double plannedQuantity) {
         this.plannedQuantity = plannedQuantity;
     }
 
-    public Long getActualQuantity() {
+    public Double getActualQuantity() {
         return actualQuantity;
     }
 
-    public void setActualQuantity(Long actualQuantity) {
+    public void setActualQuantity(Double actualQuantity) {
         this.actualQuantity = actualQuantity;
     }
 
@@ -45,18 +45,6 @@ public class ItemTo {
     public void setId(Integer id) {
         this.id = id;
     }
-
-<<<<<<< HEAD
-
-=======
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
->>>>>>> dev
 
     public LocalTime getTime() {
         return time;

@@ -12,6 +12,8 @@ public class Category {
     private String name;
     private String unit;
 
+    private Double totalAmount;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Event> events;
 
@@ -22,6 +24,14 @@ public class Category {
     private Collection<ItemTo> itemTos;
 
     public Category() {
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Integer getId() {

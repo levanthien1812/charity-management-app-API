@@ -6,6 +6,7 @@ import dev.asheep.charitymanagementapp.models.Event;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface EventService {
@@ -14,5 +15,6 @@ public interface EventService {
     public Event getEvent(Integer eventId);
     public Set<Donor> getDonorsByEventId(Integer eventId);
     public Set<Donation> getDonations(Integer donorId);
+    public Optional<Event> getEventById(Integer id);
     public void deleteEvent(Integer eventId);
 }
