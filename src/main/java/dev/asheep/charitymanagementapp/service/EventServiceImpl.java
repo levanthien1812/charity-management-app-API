@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -48,5 +49,10 @@ public class EventServiceImpl implements EventService{
     @Override
     public void deleteEvent(Integer eventId) {
         eventRepository.deleteById(eventId);
+    }
+
+    @Override
+    public Optional<Event> getEventById(Integer id){
+        return eventRepository.findById(id);
     }
 }

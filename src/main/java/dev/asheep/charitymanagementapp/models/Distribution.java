@@ -27,6 +27,8 @@ public class Distribution {
     @JoinColumn(name = "item_id")
     private ItemTo item;
 
+    private String status;
+
     public Distribution() {
     }
 
@@ -52,6 +54,14 @@ public class Distribution {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public TransferTo getTransfer() {
