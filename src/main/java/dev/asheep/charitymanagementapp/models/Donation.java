@@ -3,6 +3,7 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "donation")
 public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

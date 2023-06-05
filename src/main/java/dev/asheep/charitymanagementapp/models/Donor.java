@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "donor")
 public class Donor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,18 +20,22 @@ public class Donor {
     private String name;
     private String phone;
     private LocalDate birthday;
+    @Column(columnDefinition = "TEXT")
     private String photo;
     private String email;
     private String address;
     private Integer score;
     private LocalDate joinDate;
+    @Column(columnDefinition = "TEXT")
     private String slogan;
     private String username;
+    @JsonIgnore
     private String password;
-
     private Integer eventQuantity;
     private Double totalTransferAmount;
     private Double totalItemAmount;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     @JsonIgnore
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
@@ -49,6 +54,7 @@ public class Donor {
         this.eventQuantity = 0;
         this.totalItemAmount = 0D;
         this.totalTransferAmount = 0D;
+        this.role = Role.USER;
     }
 
     public void addDonation(Donation donation) {
@@ -194,5 +200,13 @@ public class Donor {
 
     public void setTotalItemAmount(Double totalItemAmount) {
         this.totalItemAmount = totalItemAmount;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

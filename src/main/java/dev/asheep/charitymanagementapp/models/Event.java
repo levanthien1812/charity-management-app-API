@@ -12,12 +12,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "event")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String image;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String address;
     @ManyToOne()

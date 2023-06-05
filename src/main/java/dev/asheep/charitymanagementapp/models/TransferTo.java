@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "transfer_to")
 public class TransferTo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

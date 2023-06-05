@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "receiver")
 public class Receiver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
