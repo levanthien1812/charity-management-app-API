@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -57,6 +58,7 @@ public class DistributionController {
                         itemto.setActualQuantity(0D);
                         itemto.setPlannedQuantity(itemTo.getPlannedQuantity());
                         itemto.setTime(LocalTime.now());
+                        itemto.setCategory(category.get());
                         ItemTo newItemTo = distributionService.createItemTo(itemto);
 
                         // create distribution
@@ -69,7 +71,11 @@ public class DistributionController {
                         // update total-amount category
 
                         Category updated = categoryService.updateCategoryAmount(itemTo.getCategoryId(), itemto.getPlannedQuantity());
-
+                        // Add distribution to receiver
+                        Receiver receiverInstance = receiver.get();
+                        Collection<Distribution> col = receiverInstance.getDistributions();
+                        col.add(newDist);
+                        receiverInstance.setDistributions(col);
                     }
                 }));
                 return ResponseEntity.status(HttpStatus.OK).body(new Response("success", "Create new distribution - item-to successfully", ""));
@@ -90,6 +96,17 @@ public class DistributionController {
     @PutMapping("/update")
     public ResponseEntity<Response> updateStatusDistribution(@RequestBody List<UpdateDistribution> updateDistributionList){
         return null;
+    }
+
+    @GetMapping("/receiver/{id}")
+    public ResponseEntity<Response> getByReceiverId(@PathVariable Integer id){
+        try{
+            List<Distribution> list = distributionService.getAllDistributionByReceiver(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("success", "Get Distribution List successfully", list));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
+        }
     }
 }
 

@@ -17,9 +17,12 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String image;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String address;
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;

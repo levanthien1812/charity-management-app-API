@@ -11,6 +11,8 @@ import dev.asheep.charitymanagementapp.repositories.ReceiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DistributionServiceImpl  implements DistributionService{
     @Autowired
@@ -31,5 +33,10 @@ public class DistributionServiceImpl  implements DistributionService{
     @Override
     public Distribution createDistribution (Distribution distribution){
         return distributionRepository.save(distribution);
+    }
+
+    @Override
+    public List<Distribution> getAllDistributionByReceiver (Integer receiverId){
+        return distributionRepository.findByReceiverId(receiverId);
     }
 }
