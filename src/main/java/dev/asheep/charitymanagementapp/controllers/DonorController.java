@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/donors")
 public class DonorController {
     @Autowired
@@ -40,13 +41,31 @@ public class DonorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/get-all")
     public List<Donor> getAll(@RequestParam(required = false, name = "search") String search) {
         return donorService.getAllDonors(search);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/log-in")
+    public ResponseEntity<?> get(@RequestParam("username") String username, @RequestParam("password") String password) {
+        if (!donorRepository.existsByUsername(username) && !donorRepository.existsByEmail(username)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Donor", "username or email", username));
+        }
+
+        Donor donorByEmail = donorRepository.findByEmailAndPassword(username, password);
+        Donor donorByUsername = donorRepository.findByUsernameAndPassword(username, password);
+        Donor donor;
+
+        if (donorByEmail == null && donorByUsername == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Exception("Password is not correct!"));
+        } else {
+            if (donorByUsername == null) donor = donorByEmail;
+            else donor = donorByUsername;
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(donor);
+    }
+
     @GetMapping("/{donorId}")
     public ResponseEntity<?> get(@PathVariable Integer donorId) {
         if (donorRepository.findById(donorId).isEmpty()) {

@@ -1,5 +1,8 @@
 package dev.asheep.charitymanagementapp.models;
 
+import jakarta.persistence.Table;
+
+@Table(name = "response")
 public class Response {
     private String status;
     private String message;

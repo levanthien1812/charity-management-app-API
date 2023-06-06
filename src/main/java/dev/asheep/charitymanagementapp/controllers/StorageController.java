@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/images")
 public class StorageController {
     @Autowired
