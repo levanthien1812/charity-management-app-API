@@ -51,7 +51,7 @@ public class DonationController {
         if (donation.getTransfer() != null) {
             donor.setScore((int) (donor.getScore() + (donation.getTransfer().getAmount() * donation.getEvent().getCategory().getScoreExchange())));
             donor.setTotalTransferAmount(donor.getTotalTransferAmount() + donation.getTransfer().getAmount());
-            event.setAmountGot(donation.getTransfer().getAmount());
+            event.setAmountGot(event.getAmountGot() + donation.getTransfer().getAmount());
 
             Category category = donation.getEvent().getCategory();
             category.setTotalAmount(category.getTotalAmount() + donation.getTransfer().getAmount());
@@ -60,7 +60,7 @@ public class DonationController {
         if (donation.getItem() != null) {
             donor.setScore((int) (donor.getScore() + (donation.getItem().getAmount() * donation.getItem().getCategory().getScoreExchange())));
             donor.setTotalItemAmount(donor.getTotalItemAmount() + donation.getItem().getAmount());
-            event.setAmountGot(donation.getItem().getAmount());
+            event.setAmountGot(event.getAmountGot() + donation.getItem().getAmount());
 
 //            update category total amount
             Category category = donation.getItem().getCategory();

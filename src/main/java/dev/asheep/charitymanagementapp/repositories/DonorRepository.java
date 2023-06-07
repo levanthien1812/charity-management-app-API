@@ -13,6 +13,7 @@ import java.util.List;
 public interface DonorRepository extends JpaRepository<Donor, Integer> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
+    boolean existsByIdAndPassword(Integer id, String password);
     @JsonIgnore
     Donor findByUsernameAndPassword(String username, String password);
     @JsonIgnore

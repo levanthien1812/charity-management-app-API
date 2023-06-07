@@ -31,19 +31,54 @@ public class DonorController {
 
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Donor donor) {
-        if (donorRepository.existsByUsername(donor.getUsername())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Username", donor.getUsername()));
+        System.out.println(donor.getId());
+//        add donor
+        if (donor.getId() == null) {
+            if (donorRepository.existsByUsername(donor.getUsername())) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Username", donor.getUsername()));
+            }
+            if (donorRepository.existsByEmail(donor.getEmail())) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Email", donor.getEmail()));
+            }
+
+            Donor newDonor = donorService.createDonor(donor);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
+//        update donor
+        } else {
+            Donor existingDonor = donorRepository.findById(donor.getId()).get();
+            if (existingDonor == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Exception("Donor is not found!"));
+            }
+            if (donor.getPassword() == null) {
+                existingDonor.setName(donor.getName());
+                existingDonor.setBirthday(donor.getBirthday());
+                existingDonor.setPhone(donor.getPhone());
+                existingDonor.setEmail(donor.getEmail());
+                existingDonor.setSlogan(donor.getSlogan());
+                existingDonor.setAddress(donor.getAddress());
+                existingDonor.setUsername(donor.getUsername());
+                existingDonor.setPhoto(donor.getPhoto());
+            } else {
+                existingDonor.setPassword(donor.getPassword());
+            }
+
+            donorRepository.save(existingDonor);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(existingDonor);
         }
-        if (donorRepository.existsByEmail(donor.getEmail())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Email", donor.getEmail()));
-        }
-        Donor newDonor = donorService.createDonor(donor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
     }
 
     @GetMapping("/get-all")
     public List<Donor> getAll(@RequestParam(required = false, name = "search") String search) {
         return donorService.getAllDonors(search);
+    }
+
+    @PostMapping("/check-password")
+    public  ResponseEntity<?> checkPassword(@RequestParam("donorId") String donorId, @RequestParam("password") String password) {
+        Integer id = Integer.parseInt(donorId);
+        if (!donorRepository.existsByIdAndPassword(id, password)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+        } else return ResponseEntity.ok(true);
     }
 
     @PostMapping("/log-in")
