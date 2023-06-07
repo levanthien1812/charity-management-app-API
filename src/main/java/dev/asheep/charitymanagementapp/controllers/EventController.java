@@ -53,7 +53,7 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Event", "Id", eventId));
         }
 
-        Set<Donor> donors = eventService.getDonorsByEventId(eventId);
+        List<Donor> donors = eventService.getDonorsByEventId(eventId);
         return ResponseEntity.ok(donors);
     }
 

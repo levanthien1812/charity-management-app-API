@@ -12,7 +12,8 @@ public class Category {
     private Integer id;
     private String name;
     private String unit;
-
+//    Điểm quy đổi
+    private Double scoreExchange;
     private Double totalAmount;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -25,6 +26,14 @@ public class Category {
     private Collection<ItemTo> itemTos;
 
     public Category() {
+    }
+
+    public Double getScoreExchange() {
+        return scoreExchange;
+    }
+
+    public void setScoreExchange(Double scoreExchange) {
+        this.scoreExchange = scoreExchange;
     }
 
     public Double getTotalAmount() {

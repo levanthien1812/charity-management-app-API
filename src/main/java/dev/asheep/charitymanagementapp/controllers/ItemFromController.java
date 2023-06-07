@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/itemfr")
 public class ItemFromController {
     @Autowired
@@ -27,7 +29,7 @@ public class ItemFromController {
             Optional<Category> category = categoryService.getCategoryById(reqItemFr.getCategoryId());
             if(category.isPresent()){
                 ItemFrom itemFrom = new ItemFrom();
-                itemFrom.setTime(LocalTime.now());
+                itemFrom.setTime(LocalDateTime.now());
                 itemFrom.setAmount(reqItemFr.getAmount());
                 itemFrom.setCategory(category.get());
                 // create item from

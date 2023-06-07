@@ -2,6 +2,8 @@ package dev.asheep.charitymanagementapp.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "donation")
 public class Donation {
@@ -18,13 +20,13 @@ public class Donation {
     private Event event;
 
 //    used for category money
-    @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "transfer_id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "transfer_id", referencedColumnName = "id")
     private TransferFrom transfer;
 
 //    used for category item
-    @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "item_id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     private ItemFrom item;
 
     public Donation() {
@@ -32,10 +34,6 @@ public class Donation {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Donor getDonor() {

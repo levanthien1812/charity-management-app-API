@@ -12,6 +12,6 @@ public interface DonorService {
     public List<Donor> getAllDonors(String search);
     public Donor getDonor(Integer donorId);
     public void deleteDonor(Integer donorId);
-    public Set<Event> getJoinedEvents(Integer donorId);
+    public List<Event> getJoinedEvents(Integer donorId);
     public Set<Donation> getDonations(Integer donorId);
 }

@@ -19,6 +19,9 @@ public class TransferFrom {
     private LocalDateTime time;
     private String content;
 
+    @OneToOne(mappedBy = "transfer")
+    private Donation donation;
+
     public TransferFrom() {
     }
 

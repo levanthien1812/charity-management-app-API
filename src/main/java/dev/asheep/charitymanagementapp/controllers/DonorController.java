@@ -89,7 +89,7 @@ public class DonorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Donor", "Id", donorId));
         }
 
-        Set<Event> events = donorService.getJoinedEvents(donorId);
+        List<Event> events = donorService.getJoinedEvents(donorId);
         return ResponseEntity.ok(events);
     }
 
