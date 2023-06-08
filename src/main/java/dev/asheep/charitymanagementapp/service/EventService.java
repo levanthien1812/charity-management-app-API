@@ -13,7 +13,7 @@ public interface EventService {
     public Event createEvent(Event event) ;
     public List<Event> getAllEvents();
     public Event getEvent(Integer eventId);
-    public Set<Donor> getDonorsByEventId(Integer eventId);
+    public List<Donor> getDonorsByEventId(Integer eventId);
     public Set<Donation> getDonations(Integer donorId);
     public Optional<Event> getEventById(Integer id);
     public void deleteEvent(Integer eventId);

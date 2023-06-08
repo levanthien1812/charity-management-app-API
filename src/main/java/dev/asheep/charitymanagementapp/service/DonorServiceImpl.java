@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DonorServiceImpl implements DonorService{
@@ -52,10 +53,13 @@ public class DonorServiceImpl implements DonorService{
     }
 
     @Override
-    public Set<Event> getJoinedEvents(Integer donorId) {
+    public List<Event> getJoinedEvents(Integer donorId) {
         Donor donor = donorRepository.findById(donorId).orElse(null);
-        if (donor == null) return Collections.EMPTY_SET;
-        return donor.getJoinedEvents();
+        return donor.getDonations()
+                .stream()
+                .map(Donation::getEvent)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override

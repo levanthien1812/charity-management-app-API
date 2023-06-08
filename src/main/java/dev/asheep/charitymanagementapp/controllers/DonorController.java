@@ -11,9 +11,11 @@ import dev.asheep.charitymanagementapp.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -29,21 +31,63 @@ public class DonorController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Donor donor) {
-        if (donorRepository.existsByUsername(donor.getUsername())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Username", donor.getUsername()));
+        System.out.println(donor.getId());
+//        add donor
+        if (donor.getId() == null) {
+            if (donorRepository.existsByUsername(donor.getUsername())) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Username", donor.getUsername()));
+            }
+            if (donorRepository.existsByEmail(donor.getEmail())) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Email", donor.getEmail()));
+            }
+
+            String hashedPassword = passwordEncoder.encode(donor.getPassword());
+            donor.setPassword(hashedPassword);
+
+            Donor newDonor = donorService.createDonor(donor);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
+//        update donor
+        } else {
+            Donor existingDonor = donorRepository.findById(donor.getId()).get();
+            if (existingDonor == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Exception("Donor is not found!"));
+            }
+            if (donor.getPassword() == null) {
+                existingDonor.setName(donor.getName());
+                existingDonor.setBirthday(donor.getBirthday());
+                existingDonor.setPhone(donor.getPhone());
+                existingDonor.setEmail(donor.getEmail());
+                existingDonor.setSlogan(donor.getSlogan());
+                existingDonor.setAddress(donor.getAddress());
+                existingDonor.setUsername(donor.getUsername());
+                existingDonor.setPhoto(donor.getPhoto());
+            } else {
+                String hashedPassword = passwordEncoder.encode(donor.getPassword());
+                existingDonor.setPassword(hashedPassword);
+            }
+
+            donorRepository.save(existingDonor);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(existingDonor);
         }
-        if (donorRepository.existsByEmail(donor.getEmail())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Email", donor.getEmail()));
-        }
-        Donor newDonor = donorService.createDonor(donor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
     }
 
     @GetMapping("/get-all")
     public List<Donor> getAll(@RequestParam(required = false, name = "search") String search) {
         return donorService.getAllDonors(search);
+    }
+
+    @PostMapping("/check-password")
+    public  ResponseEntity<?> checkPassword(@RequestParam("donorId") String donorId, @RequestParam("password") String password) {
+        Integer id = Integer.parseInt(donorId);
+        if (!donorRepository.existsByIdAndPassword(id, password)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+        } else return ResponseEntity.ok(true);
     }
 
     @PostMapping("/log-in")
@@ -52,15 +96,14 @@ public class DonorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Donor", "username or email", username));
         }
 
-        Donor donorByEmail = donorRepository.findByEmailAndPassword(username, password);
-        Donor donorByUsername = donorRepository.findByUsernameAndPassword(username, password);
-        Donor donor;
+        Donor donorByUsernameEmail = donorRepository.findByUsernameOrEmail(username, username);
+        Donor donor = null;
 
-        if (donorByEmail == null && donorByUsername == null) {
+        if (!passwordEncoder.matches(password, donorByUsernameEmail.getPassword())) {
+//        if (!Objects.equals(password, donorByUsernameEmail.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Exception("Password is not correct!"));
         } else {
-            if (donorByUsername == null) donor = donorByEmail;
-            else donor = donorByUsername;
+            donor = donorByUsernameEmail;
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(donor);
@@ -89,7 +132,7 @@ public class DonorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Donor", "Id", donorId));
         }
 
-        Set<Event> events = donorService.getJoinedEvents(donorId);
+        List<Event> events = donorService.getJoinedEvents(donorId);
         return ResponseEntity.ok(events);
     }
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
@@ -58,8 +58,7 @@ public class DistributionController {
                         ItemTo itemto = new ItemTo();
                         itemto.setActualQuantity(0D);
                         itemto.setPlannedQuantity(itemTo.getPlannedQuantity());
-                        itemto.setTime(LocalDate.now());
-                        itemto.setCategory(category.get());
+                        itemto.setTime(LocalDateTime.now());
                         ItemTo newItemTo = distributionService.createItemTo(itemto);
 
                         // create distribution

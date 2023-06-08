@@ -32,30 +32,30 @@ public class Event {
     private Double amountNeeded;
     private Double amountGot;
     private Double amountDistributed;
-    private Integer donorQuantity;
+//    private Integer donorQuantity;
     private Boolean isDonating;
 
     @JsonIgnore
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private Set<Donation> donations = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "joinedEvents")
-    private Set<Donor> joinedDonors = new HashSet<>();
+//    @ManyToMany(mappedBy = "joinedEvents")
+//    private Set<Donor> joinedDonors = new HashSet<>();
 
     public Event() {
-        this.donorQuantity = 0;
+//        this.donorQuantity = 0;
         this.amountGot = 0D;
         this.amountDistributed = 0D;
+        this.isDonating = true;
     }
 
     public void addDonation(Donation donation) {
         this.donations.add(donation);
     }
 
-    public void addJoinedDonor(Donor donor) {
-        this.joinedDonors.add(donor);
-    }
+//    public void addJoinedDonor(Donor donor) {
+//        this.joinedDonors.add(donor);
+//    }
 
     public Integer getId() {
         return id;
@@ -137,13 +137,13 @@ public class Event {
         this.amountGot = amountGot;
     }
 
-    public Integer getDonorQuantity() {
-        return donorQuantity;
-    }
-
-    public void setDonorQuantity(Integer donorQuantity) {
-        this.donorQuantity = donorQuantity;
-    }
+//    public Integer getDonorQuantity() {
+//        return donorQuantity;
+//    }
+//
+//    public void setDonorQuantity(Integer donorQuantity) {
+//        this.donorQuantity = donorQuantity;
+//    }
 
     public Set<Donation> getDonations() {
         return donations;
@@ -153,13 +153,13 @@ public class Event {
         this.donations = donations;
     }
 
-    public Set<Donor> getJoinedDonors() {
-        return joinedDonors;
-    }
-
-    public void setJoinedDonors(Set<Donor> joinedDonors) {
-        this.joinedDonors = joinedDonors;
-    }
+//    public Set<Donor> getJoinedDonors() {
+//        return joinedDonors;
+//    }
+//
+//    public void setJoinedDonors(Set<Donor> joinedDonors) {
+//        this.joinedDonors = joinedDonors;
+//    }
 
     public Boolean getDonating() {
         return isDonating;

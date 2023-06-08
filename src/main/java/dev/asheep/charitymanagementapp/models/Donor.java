@@ -2,6 +2,7 @@ package dev.asheep.charitymanagementapp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -31,7 +32,7 @@ public class Donor {
     private String username;
     @JsonIgnore
     private String password;
-    private Integer eventQuantity;
+//    private Integer eventQuantity;
     private Double totalTransferAmount;
     private Double totalItemAmount;
     @Enumerated(EnumType.STRING)
@@ -41,17 +42,16 @@ public class Donor {
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private Set<Donation> donations = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "donation",
-            joinColumns =  @JoinColumn(name = "donor_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id"))
-    private Set<Event> joinedEvents = new HashSet<>();
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "donation",
+//            joinColumns =  @JoinColumn(name = "donor_id"),
+//            inverseJoinColumns = @JoinColumn(name = "event_id"))
+//    private Set<Event> joinedEvents = new HashSet<>();
 
     public Donor() {
         this.joinDate = LocalDate.now();
         this.score = 0;
-        this.eventQuantity = 0;
+//        this.eventQuantity = 0;
         this.totalItemAmount = 0D;
         this.totalTransferAmount = 0D;
         this.role = Role.USER;
@@ -61,9 +61,9 @@ public class Donor {
         this.donations.add(donation);
     }
 
-    public void addJoinedEvent(Event event) {
-        this.joinedEvents.add(event);
-    }
+//    public void addJoinedEvent(Event event) {
+//        this.joinedEvents.add(event);
+//    }
 
 //    Getters and setters
     public Integer getId() {
@@ -162,14 +162,15 @@ public class Donor {
         this.donations = donations;
     }
 
-    public Set<Event> getJoinedEvents() {
-        return joinedEvents;
-    }
+//    public Set<Event> getJoinedEvents() {
+//        return joinedEvents;
+//    }
+//
+//    public void setJoinedEvents(Set<Event> joinedEvents) {
+//        this.joinedEvents = joinedEvents;
+//    }
 
-    public void setJoinedEvents(Set<Event> joinedEvents) {
-        this.joinedEvents = joinedEvents;
-    }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
@@ -178,13 +179,13 @@ public class Donor {
         this.password = password;
     }
 
-    public Integer getEventQuantity() {
-        return eventQuantity;
-    }
-
-    public void setEventQuantity(Integer eventQuantity) {
-        this.eventQuantity = eventQuantity;
-    }
+//    public Integer getEventQuantity() {
+//        return eventQuantity;
+//    }
+//
+//    public void setEventQuantity(Integer eventQuantity) {
+//        this.eventQuantity = eventQuantity;
+//    }
 
     public Double getTotalTransferAmount() {
         return totalTransferAmount;

@@ -10,4 +10,5 @@ public interface DonationService {
     public Donation createDonation(Donation donation);
 
     public List<Donation> getDonationByCategoryId(Integer id);
+    public List<Donation> getAllDonations();
 }

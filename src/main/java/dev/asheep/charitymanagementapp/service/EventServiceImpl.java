@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -34,10 +35,12 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Set<Donor> getDonorsByEventId(Integer eventId) {
+    public List<Donor> getDonorsByEventId(Integer eventId) {
         Event event = eventRepository.findById(eventId).orElse(null);
-        if (event == null) return Collections.EMPTY_SET;
-        return event.getJoinedDonors();
+        return event.getDonations()
+                .stream()
+                .map(Donation::getDonor)
+                .collect(Collectors.toList());
     }
 
     @Override

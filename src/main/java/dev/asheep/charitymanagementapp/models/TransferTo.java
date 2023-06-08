@@ -19,6 +19,9 @@ public class TransferTo {
     private LocalDateTime time;
     private String content;
 
+    @OneToOne(mappedBy = "transfer")
+    private Distribution distribution;
+
     public TransferTo() {
     }
 
