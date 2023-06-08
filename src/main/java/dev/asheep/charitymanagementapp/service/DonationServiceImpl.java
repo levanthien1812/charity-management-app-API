@@ -18,6 +18,8 @@ public class DonationServiceImpl implements DonationService{
     }
 
     @Override
+    public List<Donation> getDonationByCategoryId(Integer id){
+        return donationRepository.findByItemCategoryId(id);
     public List<Donation> getAllDonations() {
         return donationRepository.findAll();
     }
