@@ -11,9 +11,11 @@ import dev.asheep.charitymanagementapp.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -29,6 +31,9 @@ public class DonorController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Donor donor) {
         System.out.println(donor.getId());
@@ -40,6 +45,9 @@ public class DonorController {
             if (donorRepository.existsByEmail(donor.getEmail())) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceExistedException("Donor", "Email", donor.getEmail()));
             }
+
+            String hashedPassword = passwordEncoder.encode(donor.getPassword());
+            donor.setPassword(hashedPassword);
 
             Donor newDonor = donorService.createDonor(donor);
             return ResponseEntity.status(HttpStatus.CREATED).body(newDonor);
@@ -59,7 +67,8 @@ public class DonorController {
                 existingDonor.setUsername(donor.getUsername());
                 existingDonor.setPhoto(donor.getPhoto());
             } else {
-                existingDonor.setPassword(donor.getPassword());
+                String hashedPassword = passwordEncoder.encode(donor.getPassword());
+                existingDonor.setPassword(hashedPassword);
             }
 
             donorRepository.save(existingDonor);
@@ -87,15 +96,14 @@ public class DonorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("Donor", "username or email", username));
         }
 
-        Donor donorByEmail = donorRepository.findByEmailAndPassword(username, password);
-        Donor donorByUsername = donorRepository.findByUsernameAndPassword(username, password);
-        Donor donor;
+        Donor donorByUsernameEmail = donorRepository.findByUsernameOrEmail(username, username);
+        Donor donor = null;
 
-        if (donorByEmail == null && donorByUsername == null) {
+        if (!passwordEncoder.matches(password, donorByUsernameEmail.getPassword())) {
+//        if (!Objects.equals(password, donorByUsernameEmail.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Exception("Password is not correct!"));
         } else {
-            if (donorByUsername == null) donor = donorByEmail;
-            else donor = donorByUsername;
+            donor = donorByUsernameEmail;
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(donor);

@@ -5,6 +5,7 @@ import dev.asheep.charitymanagementapp.exception.ResourceNotFoundException;
 import dev.asheep.charitymanagementapp.models.Donation;
 import dev.asheep.charitymanagementapp.models.Donor;
 import dev.asheep.charitymanagementapp.models.Event;
+import dev.asheep.charitymanagementapp.repositories.DonorRepository;
 import dev.asheep.charitymanagementapp.repositories.EventRepository;
 import dev.asheep.charitymanagementapp.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private DonorRepository donorRepository;
 
     @PostMapping
     public ResponseEntity<?> add (@RequestBody Event event) {
@@ -73,5 +77,24 @@ public class EventController {
         }
         eventService.deleteEvent(eventId);
         return ResponseEntity.ok("Delete event successfully");
+    }
+
+    @GetMapping("/{eventId}/donor-amount/{donorId}")
+    public Double getTotalDonationAmount(@PathVariable Integer eventId,@PathVariable Integer donorId) {
+        Double totalAmount = 0D;
+        Event event = eventRepository.findById(eventId).get();
+        Donor donor = donorRepository.findById(donorId).get();
+
+        for (Donation donation : donor.getDonations()) {
+            if (donation.getEvent().equals(event)) {
+                if (donation.getTransfer() != null) {
+                    totalAmount = totalAmount + donation.getTransfer().getAmount();
+                } else {
+                    totalAmount = totalAmount + donation.getItem().getAmount();
+                }
+            }
+        }
+
+        return totalAmount;
     }
 }
