@@ -13,4 +13,6 @@ public interface CategoryService {
     public Category updateCategoryAmount(Integer categoryId, Double amount);
 
     public Optional<Category> getCategoryById(Integer id);
+
+    public Category decreaseCategoryAmount(Integer categoryId, Double amount);
 }

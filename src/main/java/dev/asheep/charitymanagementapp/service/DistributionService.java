@@ -14,4 +14,8 @@ public interface DistributionService {
     public Distribution createDistribution (Distribution distribution);
 
     public List<Distribution> getAllDistributionByReceiver (Integer receiverId);
+
+    public List<Distribution> getAllDistributionByCategory (Integer categoryId);
+
+    public List<Distribution> getAllDistributionByEvent(Integer eventId);
 }

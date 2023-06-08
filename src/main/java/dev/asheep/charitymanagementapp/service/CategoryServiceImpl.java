@@ -37,6 +37,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category decreaseCategoryAmount(Integer categoryId, Double amount){
+        Category category = categoryRepository.findById(categoryId)
+                .map(cate -> {
+                    cate.setTotalAmount(cate.getTotalAmount() - amount);
+                    return categoryRepository.save(cate);
+                }).orElseGet(() -> {
+                    return null;
+                });
+        return category;
+    }
+
+    @Override
     public Optional<Category> getCategoryById(Integer id){
         return categoryRepository.findById(id);
     }

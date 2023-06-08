@@ -3,6 +3,7 @@ package dev.asheep.charitymanagementapp.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -15,7 +16,7 @@ public class ItemTo {
     private Double plannedQuantity;
 
     private Double actualQuantity;
-    private LocalTime time;
+    private LocalDate time;
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;
@@ -47,11 +48,11 @@ public class ItemTo {
         this.id = id;
     }
 
-    public LocalTime getTime() {
+    public LocalDate getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(LocalDate time) {
         this.time = time;
     }
 

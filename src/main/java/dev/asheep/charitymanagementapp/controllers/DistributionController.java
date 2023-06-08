@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
@@ -57,7 +58,7 @@ public class DistributionController {
                         ItemTo itemto = new ItemTo();
                         itemto.setActualQuantity(0D);
                         itemto.setPlannedQuantity(itemTo.getPlannedQuantity());
-                        itemto.setTime(LocalTime.now());
+                        itemto.setTime(LocalDate.now());
                         itemto.setCategory(category.get());
                         ItemTo newItemTo = distributionService.createItemTo(itemto);
 
@@ -70,7 +71,7 @@ public class DistributionController {
                         Distribution newDist = distributionService.createDistribution(distribution);
                         // update total-amount category
 
-                        Category updated = categoryService.updateCategoryAmount(itemTo.getCategoryId(), itemto.getPlannedQuantity());
+                        Category updated = categoryService.decreaseCategoryAmount(itemTo.getCategoryId(), itemto.getPlannedQuantity());
                         // Add distribution to receiver
                         Receiver receiverInstance = receiver.get();
                         Collection<Distribution> col = receiverInstance.getDistributions();
@@ -108,6 +109,27 @@ public class DistributionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
         }
     }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Response> getItemTobyCategoryId(@PathVariable Integer id){
+        try{
+            List<Distribution> list =  distributionService.getAllDistributionByCategory(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("success", "Get Distribution List successfully", list));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
+        }
+    }
+
+    @GetMapping("/event/{id}")
+    public ResponseEntity<Response> getDistributionByEvent(@PathVariable Integer id){
+        try{
+            List<Distribution> list =  distributionService.getAllDistributionByEvent(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("success", "Get Distribution List successfully", list));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
+        }
+    }
+
 }
 
 class DistributionListReq {

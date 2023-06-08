@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,6 +42,11 @@ public class ItemFromController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
         }
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Response> getItemFrbyCategoryId(@PathVariable Integer id){
+        return null;
     }
 
 }
