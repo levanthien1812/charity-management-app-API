@@ -79,4 +79,14 @@ public class DonationController {
         eventRepository.save(event);
         return ResponseEntity.status(HttpStatus.OK).body(newDonation);
     }
+
+    @GetMapping("/category/{id}")
+    ResponseEntity<Response> getDonationByCategory(@PathVariable Integer id){
+        try{
+            List<Donation> list =  donationService.getDonationByCategoryId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("success", "Get Distribution List successfully", list));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("failed", e.getMessage(), ""));
+        }
+    }
 }

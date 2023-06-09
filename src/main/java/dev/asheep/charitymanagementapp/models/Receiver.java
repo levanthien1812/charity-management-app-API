@@ -1,13 +1,12 @@
 package dev.asheep.charitymanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jdk.jfr.consumer.RecordedEvent;
+import org.w3c.dom.Text;
 
-import java.sql.Date;
+import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Table(name = "receiver")
@@ -20,6 +19,7 @@ public class Receiver {
     private Integer gender;
     private String phone;
     private LocalDate birthday;
+    @Column(columnDefinition = "TEXT")
     private String photo;
 
     private String description;
@@ -37,10 +37,12 @@ public class Receiver {
 
     private String bankNumber;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "receiverType_id")
     private ReceiverType receiverType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private Collection<Distribution> distributions;
 
@@ -191,6 +193,4 @@ public class Receiver {
     public void setDistributions(Collection<Distribution> distributions) {
         this.distributions = distributions;
     }
-
-
 }
