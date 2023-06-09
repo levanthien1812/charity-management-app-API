@@ -23,7 +23,7 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String address;
-    @JsonIgnore
+
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;
