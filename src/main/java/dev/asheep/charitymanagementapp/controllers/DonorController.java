@@ -2,11 +2,13 @@ package dev.asheep.charitymanagementapp.controllers;
 
 import dev.asheep.charitymanagementapp.exception.ResourceExistedException;
 import dev.asheep.charitymanagementapp.exception.ResourceNotFoundException;
+import dev.asheep.charitymanagementapp.models.Category;
 import dev.asheep.charitymanagementapp.models.Donation;
 import dev.asheep.charitymanagementapp.models.Donor;
 import dev.asheep.charitymanagementapp.models.Event;
 import dev.asheep.charitymanagementapp.repositories.DonorRepository;
 import dev.asheep.charitymanagementapp.repositories.EventRepository;
+import dev.asheep.charitymanagementapp.service.DonationService;
 import dev.asheep.charitymanagementapp.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,6 +36,9 @@ public class DonorController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private DonationService donationService;
 
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Donor donor) {
@@ -143,5 +149,17 @@ public class DonorController {
         }
         Set<Donation> donations = donorService.getDonations(donorId);
         return ResponseEntity.ok(donations);
+    }
+
+    @GetMapping("/{donorId}/total-amount-by-category")
+    public ResponseEntity<Map<String, Double>> getTotalAmountByCategory(@PathVariable("donorId") Integer donorId) {
+        Donor donor = donorRepository.findById(donorId).orElse(null);
+        if (donor == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Map<String, Double> totalAmountByCategory = donationService.getTotalAmountByCategoryForDonor(donor);
+
+        return ResponseEntity.ok(totalAmountByCategory);
     }
 }

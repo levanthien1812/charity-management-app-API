@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-
+//    String getNameById(Integer id);
+//
+//    String getUnitById(Integer id);
 }
