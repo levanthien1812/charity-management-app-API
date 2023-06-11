@@ -32,8 +32,16 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<?> add (@RequestBody Event event) {
-        Event newEvent = eventService.createEvent(event);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newEvent);
+//        if (event.getId() == null) {
+            Event newEvent = eventService.createEvent(event);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newEvent);
+//        } else {
+//            Event existingEvent = eventRepository.findById(event.getId()).get();
+//            if (existingEvent == null) {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Exception("Event is not found!"));
+//            }
+//            existingEvent.set
+//        }
     }
 
     @GetMapping("/{eventId}")

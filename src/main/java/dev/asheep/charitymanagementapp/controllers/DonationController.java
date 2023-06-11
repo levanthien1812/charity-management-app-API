@@ -37,8 +37,8 @@ public class DonationController {
     @PostMapping
     public ResponseEntity<?> add(@RequestBody Donation donation) {
         Donation newDonation = donationService.createDonation(donation);
-        Donor donor = newDonation.getDonor();
-        Event event = newDonation.getEvent();
+        Donor donor = donorRepository.findById(newDonation.getDonor().getId()).get();
+        Event event = eventRepository.findById(newDonation.getEvent().getId()).get();
 
 //        Add donation to Event and Donor
         donor.addDonation(newDonation);
