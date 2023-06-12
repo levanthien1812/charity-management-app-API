@@ -90,10 +90,13 @@ public class DonorController {
 
     @PostMapping("/check-password")
     public  ResponseEntity<?> checkPassword(@RequestParam("donorId") String donorId, @RequestParam("password") String password) {
-        Integer id = Integer.parseInt(donorId);
-        if (!donorRepository.existsByIdAndPassword(id, password)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
-        } else return ResponseEntity.ok(true);
+        Donor donor = donorRepository.findById(Integer.parseInt(donorId)).get();
+
+        if (!passwordEncoder.matches(password, donor.getPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Exception("Password is not correct!"));
+        } else {
+            return ResponseEntity.ok(true);
+        }
     }
 
     @PostMapping("/log-in")
